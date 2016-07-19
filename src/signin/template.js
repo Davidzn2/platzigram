@@ -21,7 +21,7 @@ var landing = require('../landing')
     </div>
     <div class="row">
       <div class="login-box">
-        ¿No tienes una cuenta? <a href="/signin">Registrate</a>
+        ¿No tienes una cuenta? <a href="/signup">Registrate</a>
       </div>
     </div>
   </div>`;
