@@ -2397,32 +2397,64 @@ var title = require('title');
 page('/', function (ctx, next) {
   title('Platzigram');
   var main = document.getElementById('main-container');
-  empty(main).appendChild(template);
+  var pictures = [{
+    user: {
+      username: 'david',
+      avatar: 'office.jpg'
+
+    },
+    url: 'office.jpg',
+    likes: 103,
+    liked: true
+  }, {
+    user: {
+      username: 'david',
+      avatar: 'office.jpg'
+
+    },
+    url: 'office.jpg',
+    likes: 13,
+    liked: true
+  }, {
+    user: {
+      username: 'david',
+      avatar: 'office.jpg'
+
+    },
+    url: 'office.jpg',
+    likes: 23,
+    liked: true
+  }];
+
+  empty(main).appendChild(template(pictures));
 });
 
 },{"./template":18,"empty-element":3,"page":11,"title":14}],18:[function(require,module,exports){
 var yo = require('yo-yo');
 var layout = require('../layout');
+var picture = require('../picture-card');
 
-var template = yo`<div class="container timeline">
-      <div class="row">
-        <div class="col s12 m10 offset-m1 l6 offset-l3">
-          <p>contenido</p>
+module.exports = function (pictures) {
+  var el = yo`<div class="container timeline">
+        <div class="row">
+          <div class="col s12 m10 offset-m1 l6 offset-l3">
+            ${ pictures.map(function (pic) {
+    return picture(pic);
+  }) }
+          </div>
         </div>
-      </div>
-  </div>
-`;
+    </div>`;
+  return layout(el);
+};
 
-module.exports = layout(template);
-
-},{"../layout":21,"yo-yo":15}],19:[function(require,module,exports){
+},{"../layout":21,"../picture-card":22,"yo-yo":15}],19:[function(require,module,exports){
 var page = require('page');
 require('./homepage');
 require('./signup');
 require('./signin');
 page();
 
-},{"./homepage":17,"./signin":22,"./signup":24,"page":11}],20:[function(require,module,exports){
+},{"./homepage":17,"./signin":23,"./signup":25,"page":11}],20:[function(require,module,exports){
 var yo = require('yo-yo');
 module.exports = function landing(box) {
   return yo`<div class="container">
@@ -2467,6 +2499,28 @@ module.exports = function layout(content) {
 };
 
 },{"yo-yo":15}],22:[function(require,module,exports){
+var yo = require('yo-yo');
+
+module.exports = function (pic) {
+  return yo`<div class="card">
+      <div class="card-image">
+        <img class="activator" src="${ pic.url }">
+      </div>
+      <div class="card-content">
+        <a href="/user/${ pic.user.username }" class="card-title">
+          <img src="${ pic.user.avatar }" class="avatar"/>
+          <span class="username">${ pic.user.username }</span>
+          <small class="right time">Hace 1 dia</small>
+          <p>
+            <a href="#" class="left"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+            <span class="left likes">${ pic.likes } me gusta</span>
+          </p>
+        </a>
+      </div>
+    </div>`;
+};
+
+},{"yo-yo":15}],23:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2478,7 +2532,7 @@ page('/signin', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":23,"empty-element":3,"page":11,"title":14}],23:[function(require,module,exports){
+},{"./template":24,"empty-element":3,"page":11,"title":14}],24:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var signinForm = yo`<div class="col s12 m7">
@@ -2509,7 +2563,7 @@ var signinForm = yo`<div class="col s12 m7">
 
 module.exports = landing(signinForm);
 
-},{"../landing":20,"yo-yo":15}],24:[function(require,module,exports){
+},{"../landing":20,"yo-yo":15}],25:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2520,7 +2574,7 @@ page('/signup', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":25,"empty-element":3,"page":11,"title":14}],25:[function(require,module,exports){
+},{"./template":26,"empty-element":3,"page":11,"title":14}],26:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var signupForm = yo`<div class="col s12 m7">
