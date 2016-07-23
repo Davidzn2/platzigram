@@ -14,8 +14,8 @@ page('/', function(ctx, next){
 
       },
       url:'office.jpg',
-      likes: 103,
-      liked: true
+      likes: 0,
+      liked: false
     },
     {
       user:{
@@ -24,19 +24,10 @@ page('/', function(ctx, next){
 
       },
       url:'office.jpg',
-      likes: 13,
-      liked: true
+      likes: 0,
+      liked: false
     },
-    {
-      user:{
-        username:'david',
-        avatar:'office.jpg',
 
-      },
-      url:'office.jpg',
-      likes: 23,
-      liked: true
-    },
   ];
 
   empty(main).appendChild(template(pictures));

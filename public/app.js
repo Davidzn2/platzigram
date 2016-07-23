@@ -2404,8 +2404,8 @@ page('/', function (ctx, next) {
 
     },
     url: 'office.jpg',
-    likes: 103,
-    liked: true
+    likes: 0,
+    liked: false
   }, {
     user: {
       username: 'david',
@@ -2413,17 +2413,8 @@ page('/', function (ctx, next) {
 
     },
     url: 'office.jpg',
-    likes: 13,
-    liked: true
-  }, {
-    user: {
-      username: 'david',
-      avatar: 'office.jpg'
-
-    },
-    url: 'office.jpg',
-    likes: 23,
-    liked: true
+    likes: 0,
+    liked: false
   }];
 
   empty(main).appendChild(template(pictures));
@@ -2501,23 +2492,39 @@ module.exports = function layout(content) {
 },{"yo-yo":15}],22:[function(require,module,exports){
 var yo = require('yo-yo');
 
-module.exports = function (pic) {
-  return yo`<div class="card">
-      <div class="card-image">
-        <img class="activator" src="${ pic.url }">
-      </div>
-      <div class="card-content">
-        <a href="/user/${ pic.user.username }" class="card-title">
-          <img src="${ pic.user.avatar }" class="avatar"/>
-          <span class="username">${ pic.user.username }</span>
-          <small class="right time">Hace 1 dia</small>
-          <p>
-            <a href="#" class="left"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-            <span class="left likes">${ pic.likes } me gusta</span>
-          </p>
-        </a>
-      </div>
-    </div>`;
+module.exports = function pictureCard(pic) {
+  var el;
+
+  function render(picture) {
+    return yo`<div class="card ${ picture.liked ? 'liked' : '' }">
+        <div class="card-image">
+          <img class="activator" src="${ picture.url }">
+        </div>
+        <div class="card-content">
+          <a href="/user/${ picture.user.username }" class="card-title">
+            <img src="${ picture.user.avatar }" class="avatar"/>
+            <span class="username">${ picture.user.username }</span>
+            <small class="right time">Hace 1 dia</small>
+            <p>
+              <a href="#" class="left" onclick=${ like.bind(null, true) }><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+              <a href="#" class="left" onclick=${ like.bind(null, false) }><i class="fa fa-heart" aria-hidden="true"></i></a>
+
+              <span class="left likes">${ picture.likes } me gusta</span>
+            </p>
+          </a>
+        </div>
+      </div>`;
+  }
+
+  function like(liked) {
+    pic.liked = liked;
+    pic.likes += liked ? 1 : -1;
+    var newEl = render(pic);
+    yo.update(el, newEl);
+    return false;
+  }
+  el = render(pic);
+  return el;
 };
 
 },{"yo-yo":15}],23:[function(require,module,exports){
