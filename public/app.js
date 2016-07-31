@@ -6692,7 +6692,7 @@ page('/', function (ctx, next) {
 
     },
     url: 'office.jpg',
-    likes: 0,
+    likes: 3,
     liked: false,
     createdAt: new Date().setDate(new Date().getDate() - 10)
   }];
@@ -6777,6 +6777,7 @@ module.exports = function layout(content) {
 },{"yo-yo":17}],24:[function(require,module,exports){
 var yo = require('yo-yo');
 var moment = require('moment');
+// var translate = require('../translate');
 module.exports = function pictureCard(pic) {
   var el;
 
@@ -6790,12 +6791,12 @@ module.exports = function pictureCard(pic) {
             <img src="${ picture.user.avatar }" class="avatar"/>
             <span class="username">${ picture.user.username }</span>
           </a>
-          <small class="right time">${ moment(picture.createdAt).fromNow() }</small>
+          <small class="right time">${ translate.date.format(picture.createdAt) }</small>
             <p>
               <a href="#" class="left" onclick=${ like.bind(null, true) }><i class="fa fa-heart-o" aria-hidden="true"></i></a>
               <a href="#" class="left" onclick=${ like.bind(null, false) }><i class="fa fa-heart" aria-hidden="true"></i></a>
 
-              <span class="left likes">${ picture.likes } me gusta</span>
+              <span class="left likes">${ translate.message('likes', { likes: picture.likes }) }</span>
             </p>
 
         </div>

@@ -25,7 +25,7 @@ page('/', function(ctx, next){
 
       },
       url:'office.jpg',
-      likes: 0,
+      likes: 3,
       liked: false,
       createdAt:new Date().setDate(new Date().getDate()-10)
     },
