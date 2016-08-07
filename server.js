@@ -13,5 +13,6 @@ app.get('/signin', function (req, res) {
 });
 port = 3000;
 app.listen(port, function (err) {
+  if (err) return console.log("Something happend"), process.exit(1);
   console.log('The magic happens on port: '+ port);
 });
