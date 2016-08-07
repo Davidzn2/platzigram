@@ -18,7 +18,7 @@ MESSAGES['en-US'] = en;
 var locale = 'es';
 module.exports = {
     message:function(text, options = {}){
-        var msg = new IntlMessageFormat(text, locale, null);
+        var msg = new IntlMessageFormat(MESSAGES[locale][text], locale, null);
         return msg.format(options);
     },
     date: new IntlRelativeFormat(locale)
